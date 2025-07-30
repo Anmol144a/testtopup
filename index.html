@@ -1,94 +1,116 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ร้านเติมเกม - เลือกเกมที่ต้องการ</title>
-    <!-- นี่คือการเรียกใช้ Tailwind CSS ซึ่งเป็นเครื่องมือช่วยจัดสไตล์ให้สวยงามอย่างรวดเร็ว -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* เราจะใช้ฟอนต์ 'Kanit' ที่คนไทยนิยมใช้กัน */
-        body {
-            font-family: 'Kanit', sans-serif;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nanxi Topup Center - Choose Your Game</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+    }
+
+    .glow:hover {
+      box-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 30px #3b82f6;
+    }
+  </style>
 </head>
+
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
-    <!-- ส่วนหัวของเว็บ -->
-    <header class="bg-white dark:bg-gray-800 shadow-md">
-        <nav class="container mx-auto px-6 py-4">
-            <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">MyGame TopUp</h1>
-        </nav>
-    </header>
+  <!-- Header -->
+  <header class="bg-white dark:bg-gray-800 shadow-md">
+    <nav class="container mx-auto px-6 py-4">
+      <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400 glow">Nanxi Topup Center</h1>
+    </nav>
+  </header>
 
-    <!-- ส่วนเนื้อหาหลัก -->
-    <main class="container mx-auto px-6 py-8">
-        <section>
-            <h2 class="text-3xl font-bold text-center mb-8">เลือกเกมที่คุณต้องการเติม</h2>
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-8">
+    <section>
+      <h2 class="text-3xl font-bold text-center mb-8" data-aos="fade-up">Select the Game You Want to Top-Up</h2>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                
-                <!-- ตัวอย่างเกมที่ 1: ห่อด้วยแท็ก <a> -->
-                <a href="./product.html?gameId=game1&gameName=ชื่อเกมสุดฮิต 1&imageUrl=https://placehold.co/300x400/3498db/ffffff?text=Game+1" class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
-                    <div class="bg-white dark:bg-gray-800">
-                        <img src="https://placehold.co/300x400/3498db/ffffff?text=Game+1" alt="โลโก้เกม 1" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg">ชื่อเกมสุดฮิต 1</h3>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- ตัวอย่างเกมที่ 2 -->
-                <a href="./product.html?gameId=game2&gameName=เกมยอดนิยม 2&imageUrl=https://placehold.co/300x400/e74c3c/ffffff?text=Game+2" class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
-                    <div class="bg-white dark:bg-gray-800">
-                        <img src="https://placehold.co/300x400/e74c3c/ffffff?text=Game+2" alt="โลโก้เกม 2" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg">เกมยอดนิยม 2</h3>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- ตัวอย่างเกมที่ 3 -->
-                <a href="./product.html?gameId=game3&gameName=เกมแนวต่อสู้ 3&imageUrl=https://placehold.co/300x400/2ecc71/ffffff?text=Game+3" class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
-                    <div class="bg-white dark:bg-gray-800">
-                        <img src="https://placehold.co/300x400/2ecc71/ffffff?text=Game+3" alt="โลโก้เกม 3" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg">เกมแนวต่อสู้ 3</h3>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- ตัวอย่างเกมที่ 4 -->
-                <a href="./product.html?gameId=game4&gameName=เกมผจญภัย 4&imageUrl=https://placehold.co/300x400/f1c40f/ffffff?text=Game+4" class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
-                    <div class="bg-white dark:bg-gray-800">
-                        <img src="https://placehold.co/300x400/f1c40f/ffffff?text=Game+4" alt="โลโก้เกม 4" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg">เกมผจญภัย 4</h3>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- ตัวอย่างเกมที่ 5 -->
-                <a href="./product.html?gameId=game5&gameName=เกมวางแผน 5&imageUrl=https://placehold.co/300x400/9b59b6/ffffff?text=Game+5" class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
-                    <div class="bg-white dark:bg-gray-800">
-                        <img src="https://placehold.co/300x400/9b59b6/ffffff?text=Game+5" alt="โลโก้เกม 5" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg">เกมวางแผน 5</h3>
-                        </div>
-                    </div>
-                </a>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" data-aos="fade-up"
+        data-aos-delay="100">
+        <!-- Game 1 -->
+        <a href="./product.html?gameId=game1&gameName=Popular Game 1&imageUrl=https://placehold.co/300x400/3498db/ffffff?text=Game+1"
+          class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 glow">
+          <div class="bg-white dark:bg-gray-800">
+            <img src="https://placehold.co/300x400/3498db/ffffff?text=Game+1" alt="Game 1 Logo"
+              class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h3 class="font-bold text-lg">Popular Game 1</h3>
             </div>
-        </section>
-    </main>
+          </div>
+        </a>
 
-    <!-- ส่วนท้ายของเว็บ -->
-    <footer class="text-center py-4 mt-8 bg-white dark:bg-gray-800">
-        <p>&copy; 2025 MyGame TopUp. สงวนลิขสิทธิ์.</p>
-    </footer>
+        <!-- Game 2 -->
+        <a href="./product.html?gameId=game2&gameName=Top Game 2&imageUrl=https://placehold.co/300x400/e74c3c/ffffff?text=Game+2"
+          class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 glow">
+          <div class="bg-white dark:bg-gray-800">
+            <img src="https://placehold.co/300x400/e74c3c/ffffff?text=Game+2" alt="Game 2 Logo"
+              class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h3 class="font-bold text-lg">Top Game 2</h3>
+            </div>
+          </div>
+        </a>
+
+        <!-- Game 3 -->
+        <a href="./product.html?gameId=game3&gameName=Fighting Game 3&imageUrl=https://placehold.co/300x400/2ecc71/ffffff?text=Game+3"
+          class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 glow">
+          <div class="bg-white dark:bg-gray-800">
+            <img src="https://placehold.co/300x400/2ecc71/ffffff?text=Game+3" alt="Game 3 Logo"
+              class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h3 class="font-bold text-lg">Fighting Game 3</h3>
+            </div>
+          </div>
+        </a>
+
+        <!-- Game 4 -->
+        <a href="./product.html?gameId=game4&gameName=Adventure Game 4&imageUrl=https://placehold.co/300x400/f1c40f/ffffff?text=Game+4"
+          class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 glow">
+          <div class="bg-white dark:bg-gray-800">
+            <img src="https://placehold.co/300x400/f1c40f/ffffff?text=Game+4" alt="Game 4 Logo"
+              class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h3 class="font-bold text-lg">Adventure Game 4</h3>
+            </div>
+          </div>
+        </a>
+
+        <!-- Game 5 -->
+        <a href="./product.html?gameId=game5&gameName=Strategy Game 5&imageUrl=https://placehold.co/300x400/9b59b6/ffffff?text=Game+5"
+          class="block rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 glow">
+          <div class="bg-white dark:bg-gray-800">
+            <img src="https://placehold.co/300x400/9b59b6/ffffff?text=Game+5" alt="Game 5 Logo"
+              class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h3 class="font-bold text-lg">Strategy Game 5</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-4 mt-8 bg-white dark:bg-gray-800">
+    <p>&copy; 2025 Nanxi Topup Center. All rights reserved.</p>
+  </footer>
+
+  <!-- AOS animation -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 
 </body>
+
 </html>
