@@ -1,145 +1,168 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แผงควบคุม - ร้านเติมเกม</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Kanit', sans-serif;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nanxi Topup Center - Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+    }
+
+    .glow {
+      box-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 30px #3b82f6;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-in-out both;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
 
-    <header class="bg-white dark:bg-gray-800 shadow-md">
-        <nav class="container mx-auto px-6 py-4">
-            <h1 class="text-2xl font-bold text-red-600 dark:text-red-400">แผงควบคุมสำหรับผู้ดูแล</h1>
-        </nav>
-    </header>
+  <header class="bg-white dark:bg-gray-800 shadow-md">
+    <nav class="container mx-auto px-6 py-4">
+      <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400 glow">Admin Panel - Nanxi Topup Center</h1>
+    </nav>
+  </header>
 
-    <main class="container mx-auto px-6 py-8">
-        <h2 class="text-3xl font-bold mb-6">รายการคำสั่งซื้อล่าสุด</h2>
+  <main class="container mx-auto px-6 py-8">
+    <h2 class="text-3xl font-bold mb-6" data-aos="fade-right">Latest Orders</h2>
 
-        <!-- ส่วนของตารางแสดงผล -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-x-auto">
-            <table class="w-full text-left">
-                <thead class="bg-gray-50 dark:bg-gray-700">
-                    <tr>
-                        <th class="p-4 font-bold">เวลาสั่งซื้อ</th>
-                        <th class="p-4 font-bold">ชื่อเกม</th>
-                        <th class="p-4 font-bold">Player ID</th>
-                        <th class="p-4 font-bold">แพ็กเกจ</th>
-                        <th class="p-4 font-bold">ราคา</th>
-                        <th class="p-4 font-bold">สถานะ</th>
-                        <th class="p-4 font-bold">จัดการ</th>
-                    </tr>
-                </thead>
-                <tbody id="orders-table-body">
-                    <!-- ข้อมูลออเดอร์จะถูกใส่ในนี้ด้วย JavaScript -->
-                    <tr>
-                        <td colspan="7" class="text-center p-8 text-gray-500">กำลังโหลดข้อมูล...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-x-auto" data-aos="zoom-in">
+      <table class="w-full text-left">
+        <thead class="bg-gray-50 dark:bg-gray-700">
+          <tr>
+            <th class="p-4 font-bold">Order Time</th>
+            <th class="p-4 font-bold">Game Name</th>
+            <th class="p-4 font-bold">Player ID</th>
+            <th class="p-4 font-bold">Package</th>
+            <th class="p-4 font-bold">Price</th>
+            <th class="p-4 font-bold">Status</th>
+            <th class="p-4 font-bold">Action</th>
+          </tr>
+        </thead>
+        <tbody id="orders-table-body">
+          <tr>
+            <td colspan="7" class="text-center p-8 text-gray-500">Loading data...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
 
-    <script type="module">
-        // Import functions from the Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      onSnapshot,
+      doc,
+      updateDoc,
+      query,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // =================================================================
-        // TODO: PASTE YOUR FIREBASE CONFIGURATION OBJECT HERE
-        // วางอ็อบเจกต์ firebaseConfig ของคุณเองตรงนี้ (ตัวเดียวกับที่ใช้ใน product.html)
-        const firebaseConfig = {
-            apiKey: "AIzaSyAkXOGTHHHn9HOFpCypGhbVEi9IDRW6hfw",
-            authDomain: "mygame-topup-shop.firebaseapp.com",
-            projectId: "mygame-topup-shop",
-            storageBucket: "mygame-topup-shop.firebasestorage.app",
-            messagingSenderId: "878663003843",
-            appId: "1:878663003843:web:38c5b8cc8a030f01ab3c76"
-        };
-        // =================================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyAkXOGTHHHn9HOFpCypGhbVEi9IDRW6hfw",
+      authDomain: "mygame-topup-shop.firebaseapp.com",
+      projectId: "mygame-topup-shop",
+      storageBucket: "mygame-topup-shop.firebasestorage.app",
+      messagingSenderId: "878663003843",
+      appId: "1:878663003843:web:38c5b8cc8a030f01ab3c76"
+    };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const ordersTableBody = document.getElementById("orders-table-body");
+    const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
 
-        const ordersTableBody = document.getElementById('orders-table-body');
+    onSnapshot(q, (querySnapshot) => {
+      ordersTableBody.innerHTML = "";
 
-        // สร้าง Query เพื่อดึงข้อมูลและเรียงลำดับจากใหม่ไปเก่า
-        const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+      if (querySnapshot.empty) {
+        ordersTableBody.innerHTML =
+          '<tr><td colspan="7" class="text-center p-8 text-gray-500">No orders yet</td></tr>';
+        return;
+      }
 
-        // onSnapshot จะคอย "ฟัง" การเปลี่ยนแปลงในฐานข้อมูลแบบ Real-time
-        onSnapshot(q, (querySnapshot) => {
-            // ล้างข้อมูลเก่าในตารางออกก่อน
-            ordersTableBody.innerHTML = '';
+      querySnapshot.forEach((docSnap) => {
+        const order = docSnap.data();
+        const orderId = docSnap.id;
+        const row = document.createElement("tr");
+        row.className = "border-b dark:border-gray-700 fade-in";
 
-            if (querySnapshot.empty) {
-                ordersTableBody.innerHTML = '<tr><td colspan="7" class="text-center p-8 text-gray-500">ยังไม่มีคำสั่งซื้อ</td></tr>';
-                return;
+        const orderDate = order.createdAt
+          ? new Date(order.createdAt.seconds * 1000).toLocaleString("en-US")
+          : "N/A";
+
+        const statusColor =
+          order.status === "completed"
+            ? "text-green-500"
+            : "text-yellow-500";
+        const statusText =
+          order.status === "completed" ? "Completed" : "Pending";
+
+        row.innerHTML = `
+          <td class="p-4">${orderDate}</td>
+          <td class="p-4">${order.gameName}</td>
+          <td class="p-4">${order.playerId}</td>
+          <td class="p-4">${order.packageName}</td>
+          <td class="p-4">${order.price}</td>
+          <td class="p-4 font-bold ${statusColor}">${statusText}</td>
+          <td class="p-4">
+            ${
+              order.status === "pending"
+                ? `<button data-id="${orderId}" class="update-status-btn glow bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md">Mark as Completed</button>`
+                : ""
             }
+          </td>
+        `;
+        ordersTableBody.appendChild(row);
+      });
 
-            // วนลูปแสดงผลทุกคำสั่งซื้อ
-            querySnapshot.forEach((docSnap) => {
-                const order = docSnap.data();
-                const orderId = docSnap.id; // นี่คือ ID ของเอกสาร
+      document.querySelectorAll(".update-status-btn").forEach((button) => {
+        button.addEventListener("click", async (e) => {
+          const docId = e.target.dataset.id;
+          const orderDocRef = doc(db, "orders", docId);
+          e.target.textContent = "Updating...";
+          e.target.disabled = true;
 
-                // สร้างแถวใหม่ในตาราง
-                const row = document.createElement('tr');
-                row.className = 'border-b dark:border-gray-700';
-
-                // แปลง Timestamp ของ Firebase เป็นวันที่ที่อ่านง่าย
-                const orderDate = order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleString('th-TH') : 'N/A';
-
-                const statusColor = order.status === 'completed' ? 'text-green-500' : 'text-yellow-500';
-                const statusText = order.status === 'completed' ? 'สำเร็จ' : 'รอตรวจสอบ';
-
-                row.innerHTML = `
-                    <td class="p-4">${orderDate}</td>
-                    <td class="p-4">${order.gameName}</td>
-                    <td class="p-4">${order.playerId}</td>
-                    <td class="p-4">${order.packageName}</td>
-                    <td class="p-4">${order.price}</td>
-                    <td class="p-4 font-bold ${statusColor}">${statusText}</td>
-                    <td class="p-4">
-                        ${order.status === 'pending' ? `<button data-id="${orderId}" class="update-status-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md">ทำให้สำเร็จ</button>` : ''}
-                    </td>
-                `;
-
-                ordersTableBody.appendChild(row);
+          try {
+            await updateDoc(orderDocRef, {
+              status: "completed"
             });
-
-            // เพิ่ม Event Listener ให้กับปุ่ม "ทำให้สำเร็จ" ทุกปุ่ม
-            document.querySelectorAll('.update-status-btn').forEach(button => {
-                button.addEventListener('click', async (e) => {
-                    const docId = e.target.dataset.id;
-                    const orderDocRef = doc(db, 'orders', docId);
-                    e.target.textContent = 'กำลังอัปเดต...';
-                    e.target.disabled = true;
-
-                    try {
-                        await updateDoc(orderDocRef, {
-                            status: 'completed'
-                        });
-                        // ไม่ต้องทำอะไรต่อ onSnapshot จะอัปเดตหน้าเว็บให้เอง
-                    } catch (error) {
-                        console.error("Error updating status: ", error);
-                        alert("เกิดข้อผิดพลาดในการอัปเดตสถานะ");
-                    }
-                });
-            });
+          } catch (error) {
+            console.error("Error updating status: ", error);
+            alert("Error updating order status");
+          }
         });
+      });
+    });
+  </script>
 
-    </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </body>
 
 </html>
